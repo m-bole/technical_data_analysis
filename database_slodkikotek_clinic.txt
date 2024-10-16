@@ -1,0 +1,60 @@
+﻿-- Veterinary Clinic SLODKI KOTEK Database
+-- This SQL script creates a table for veterinary clinic clients and their pets,
+-- inserts sample data, and includes example queries.
+
+
+-- Create the table for veterinary clinic clients
+CREATE TABLE clients (
+    client_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    phone_number TEXT NOT NULL,
+    email_address TEXT NOT NULL,
+    pet_name TEXT NOT NULL,
+    pet_type TEXT NOT NULL,
+    pet_breed TEXT,
+    pet_age INTEGER
+);
+
+
+-- Client data
+INSERT INTO clients (first_name, last_name, phone_number, email_address, pet_name, pet_type, pet_breed, pet_age)
+VALUES 
+    ('Jan', 'Kowalski', '123-456-789', 'jan.kowalski@email.pl', 'Fonem', 'Pies', 'Labrador', 5),
+    ('Anna', 'Nowak', '987-654-321', 'anna.nowak@email.pl', 'Głoska', 'Kot', 'Pers', 3),
+    ('Piotr', 'Wiśniewski', '111-222-333', 'piotr.wisniewski@email.pl', 'Kiki', 'Ptak', 'Papuga', 2),
+    ('Magdalena', 'Wójcik', '444-555-666', 'magdalena.wojcik@email.pl', 'Bouba', 'Pies', 'Golden Retriever', 7),
+    ('Krzysztof', 'Lewandowski', '777-888-999', 'krzysztof.lewandowski@email.pl', 'Morfem', 'Chomik', 'Syryjski', 1),
+    ('Agnieszka', 'Dąbrowska', '222-333-444', 'agnieszka.dabrowska@email.pl', 'Syntaks', 'Kot', 'Maine Coon', 4),
+    ('Tomasz', 'Zieliński', '333-444-555', 'tomasz.zielinski@email.pl', 'Leksem', 'Pies', 'Owczarek niemiecki', 6),
+    ('Katarzyna', 'Szymańska', '444-555-666', 'katarzyna.szymanska@email.pl', 'Alofon', 'Królik', 'Miniaturka', 2),
+    ('Marcin', 'Woźniak', '555-666-777', 'marcin.wozniak@email.pl', 'Prozodja', 'Ptak', 'Kanarek', 3),
+    ('Ewa', 'Kozłowska', '666-777-888', 'ewa.kozlowska@email.pl', 'Formant', 'Żółw', 'Grecki', 10),
+    ('Adam', 'Jankowski', '777-888-999', 'adam.jankowski@email.pl', 'Afiks', 'Pies', 'Beagle', 4),
+    ('Monika', 'Wojciechowska', '888-999-000', 'monika.wojciechowska@email.pl', 'Deiksis', 'Kot', 'Syjamski', 5),
+    ('Grzegorz', 'Kwiatkowski', '999-000-111', 'grzegorz.kwiatkowski@email.pl', 'Elipsa', 'Świnka morska', 'Amerykańska', 2),
+    ('Joanna', 'Kaczmarek', '000-111-222', 'joanna.kaczmarek@email.pl', 'Anafora', 'Pies', 'Jamnik', 8),
+    ('Rafał', 'Piotrowski', '111-222-333', 'rafal.piotrowski@email.pl', 'Deiksa', 'Kot', 'Brytyjski', 3);
+
+
+-- Queries
+
+
+-- Query 1: Select all clients and their pets
+SELECT first_name, last_name, pet_name, pet_type FROM clients;
+
+
+-- Query 2: Find all dogs and their owners
+SELECT first_name, last_name, pet_name, pet_breed FROM clients WHERE pet_type = 'Pies';
+
+
+-- Query 3: Count the number of pets of each type
+SELECT pet_type, COUNT(*) as pet_count FROM clients GROUP BY pet_type;
+
+
+-- Query 4: Find the oldest pet in the clinic
+SELECT first_name, last_name, pet_name, pet_type, pet_age FROM clients WHERE pet_age = (SELECT MAX(pet_age) FROM clients);
+
+
+-- Query 5: Search for a client by phone number
+SELECT first_name, last_name, pet_name, pet_type FROM clients WHERE phone_number = '123-456-789';
